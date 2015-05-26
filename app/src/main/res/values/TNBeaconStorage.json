@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "TNBeacon S0.07",
+    "pxCoordonate": "0",
+    "pyCoordonate": "0",
+    "texte": "Bienvenue dans la salle S0.07, la plus belle de TOUT Télécom Nancy ! "
+  },
+  {
+    "Name": "TNBeacon S0.08",
+    "pxCoordonate": "10",
+    "pyCoordonate": "10",
+    "texte": "Bienvenue dans la salle S0.07, la 2e plus belle de TOUT Télécom Nancy ! "
+  }
+]
