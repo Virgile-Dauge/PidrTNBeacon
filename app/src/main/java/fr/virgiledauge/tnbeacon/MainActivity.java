@@ -244,6 +244,8 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             Log.d(TAG,"No Device Detected");
             Toast toast = Toast.makeText(this, "No Device Detected",Toast.LENGTH_SHORT);
             toast.show();
+            //We don't know where we are
+            pinView.delPin();
         }
     }
     /* BluetoothAdapter.LeScanCallback */
