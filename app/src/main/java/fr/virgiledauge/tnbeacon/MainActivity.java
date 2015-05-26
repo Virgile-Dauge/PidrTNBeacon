@@ -54,7 +54,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     Définition des constantes de temps pour le scan
      */
     private static final int SCAN_TIME = 10000; //En ms
-    private static final int SCAN_PERIOD= 11000;
+    private static final int SCAN_PERIOD= 60000;
     /*
     Sert à filtrer les devices (on ne prends en compte que ceux dont le nom contient DEVICE_NAME
      */
@@ -116,7 +116,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
          */
         pinView = (PinView) findViewById(R.id.MapImageView);
         pinView.setDoubleTapZoomDpi(400);
-        pinView.setImage(ImageSource.resource(R.drawable.map0));
+        pinView.setImage(ImageSource.resource(R.drawable.map));
 
         /*
         Récupération du Bluetooth Adapter commun à tout le système android
@@ -253,12 +253,6 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             currentBeaconData = tNBeaconDatalist.get(device.getName());
             if(currentBeaconData != null) {
                 mText.setText(currentBeaconData.getTexte());
-
-                if(currentBeaconData.getEtage() == 0) {
-                    pinView.setImage(ImageSource.resource(R.drawable.map0));
-                } else {
-                    pinView.setImage(ImageSource.resource(R.drawable.map1));
-                }
                 pinView.movePin(currentBeaconData.getPx(), currentBeaconData.getPy());
             }
             mConnectedGatt = device.connectGatt(this, false, mGattCallback);
