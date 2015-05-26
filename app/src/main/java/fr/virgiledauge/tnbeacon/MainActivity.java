@@ -35,7 +35,6 @@ Lib pour l'affichage d'une grande BitMap
  */
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.google.gson.Gson;
 /*
 Imports utilitaires
  */
@@ -69,13 +68,14 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
 
     private TextView mTemperature, mBeaconName;
     private SubsamplingScaleImageView image;
-    private PineViewPerso pinView;
 
     private Timer timer;
     private TimerTask timerTask;
 
     private ProgressDialog mProgress;
-
+    /*
+    Enum des services disponibles
+     */
     private enum Services{IRT("IRT"), ACC("ACC"), HUM("HUM"), MAG("MAG"), OPT("OPT"), GYR("GYR"), BAR("BAR");
         private final String symbol;
         private Services(String symbol){
@@ -102,35 +102,9 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         ArrayList<TNBeaconData> list = JSONParserPerso.getTNBeaconList(this,"BeaconStorage.json");
 
 
-        pinView = (PineViewPerso) findViewById(R.id.MapImageView);
-        //image.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_CENTER);
-        pinView.setDoubleTapZoomDpi(400);
-        pinView.setImage(ImageSource.resource(R.drawable.map0));
-        /*Animations Su Pinview
-        PointF point = pinView.sourceToViewCoord(2500,2500);
-        pinView.setPin(point);
-        pinView.setMaximumDpi(500);
-        pinView.setScaleAndCenter(5000,new PointF(2,2));
-        */
-        //pinView.invalidate();
-        /*
-        while(!pinView.isReady()){
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Log.d(TAG,"waiting for pin");
-        }
-        pinView.setPin(new PointF(1000, 1000));
-        SubsamplingScaleImageView.AnimationBuilder animationBuilder = pinView.animateScaleAndCenter(400, new PointF(1000, 1000));
-        animationBuilder.withDuration(2000).withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD).withInterruptible(false).start();
-        //image.animateScaleAndCenter(400, new PointF(500, 500)).start();
-        //image.setImageDrawable(getResources().getDrawable(R.drawable.map0));
-        /*
-         * Bluetooth in Android 4.3 is accessed via the BluetoothManager, rather than
-         * the old static BluetoothAdapter.getInstance()
-         */
+        image = (PineViewPerso) findViewById(R.id.MapImageView);
+        image.setDoubleTapZoomDpi(400);
+        image.setImage(ImageSource.resource(R.drawable.map0));
 
         /*
         Récupération du Bluetooth Adapter commun à tout le système android
@@ -142,8 +116,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
          */
         mDevices = new ArrayList<>();
         /*
-         * A progress dialog will be needed while the connection process is
-         * taking place
+         Une boite de dialog de progression permettra d'afficher l'état de la connexion avec les devices.
          */
         mProgress = new ProgressDialog(this);
         mProgress.setIndeterminate(true);
@@ -167,9 +140,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         }
 
         /*
-         * Check for Bluetooth LE Support.  In production, our manifest entry will keep this
-         * from installing on these devices, but this will allow test devices or other
-         * sideloads to report whether or not the feature exists.
+        On vérifie que la fonctionnalité LE du bluetooth est supportée
          */
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this, "No LE Support.",Toast.LENGTH_SHORT).show();
