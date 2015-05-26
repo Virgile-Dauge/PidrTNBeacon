@@ -35,6 +35,7 @@ Lib pour l'affichage d'une grande BitMap
  */
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.google.gson.Gson;
 /*
 Imports utilitaires
  */
@@ -64,7 +65,6 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
 
     private BluetoothAdapter mBluetoothAdapter;
     private ArrayList<DevicePerso> mDevices;
-
     private BluetoothGatt mConnectedGatt;
 
     private TextView mTemperature, mBeaconName;
@@ -97,6 +97,9 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
          */
         mBeaconName = (TextView) findViewById(R.id.BeaconName_textView);
         mTemperature = (TextView) findViewById(R.id.TempVal_textView);
+
+        //beaconList = new TNBeaconList(this,"BeaconStorage.json");
+        ArrayList<TNBeaconData> list = JSONParserPerso.getTNBeaconList(this,"BeaconStorage.json");
 
 
         pinView = (PineViewPerso) findViewById(R.id.MapImageView);

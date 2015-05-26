@@ -5,12 +5,13 @@ package fr.virgiledauge.tnbeacon;
  */
 public class TNBeaconData {
     private String ID, texte;
-    private int px,py;
-    public TNBeaconData(String ID, String texte, int px, int py){
+    private int px,py,etage;
+    public TNBeaconData(String ID, String texte, int px, int py, int etage){
         this.ID = ID;
         this.texte = texte;
         this.px = px;
         this.py = py;
+        this.etage = etage;
     }
     public String getID() {
         return ID;
@@ -35,6 +36,6 @@ public class TNBeaconData {
 
     @Override
     public String toString() {
-        return ID +"px: "+px+"py: "+py;
+        return ID +" étage: "+etage+" px: "+px+"py: "+py;
     }
 }
