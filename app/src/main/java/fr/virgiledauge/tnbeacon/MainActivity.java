@@ -53,12 +53,12 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     /*
     Définition des constantes de temps pour le scan
      */
-    private static final int SCAN_TIME = 5000; //En ms
-    private static final int SCAN_PERIOD= 30000;
+    private static final int SCAN_TIME = 10000; //En ms
+    private static final int SCAN_PERIOD= 11000;
     /*
     Sert à filtrer les devices (on ne prends en compte que ceux dont le nom contient DEVICE_NAME
      */
-    private  static final boolean PERSISTENT_MODE = true;
+    private  static final boolean PERSISTENT_MODE = false;
     private static final CharSequence DEVICE_NAME = "TNBeacon";
 
     private BluetoothAdapter mBluetoothAdapter;
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     private Timer timer;
     private TimerTask timerTask;
 
-    private ArrayList<TNBeaconData> TNBeaconDatalist;
+    private TNBeaconList tNBeaconDatalist;
     private TNBeaconData currentBeaconData;
     /*
     Enum des services disponibles
@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         /*
         Stockage de la liste des données des beacons
          */
-        ArrayList<TNBeaconData> list = JSONParserPerso.getTNBeaconList(this,"BeaconStorage.json");
+        tNBeaconDatalist = JSONParserPerso.getTNBeaconList(this,"BeaconStorage.json");
 
         /*
         Initialisation de la vue de la carte.
@@ -250,14 +250,18 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         if (mDevices.size() != 0){
             device = mDevices.get(0).getDevice();
             mBeaconName.setText(device.getName());
-            
-            mConnectedGatt = device.connectGatt(this, false,mGattCallback);
+            currentBeaconData = tNBeaconDatalist.get(device.getName());
+            if(currentBeaconData != null) {
+                mText.setText(currentBeaconData.getTexte());
+                pinView.movePin(currentBeaconData.getPx(), currentBeaconData.getPy());
+            }
+            mConnectedGatt = device.connectGatt(this, false, mGattCallback);
         }else{
             Log.d(TAG,"No Device Detected");
             Toast toast = Toast.makeText(this, "No Device Detected",Toast.LENGTH_SHORT);
             toast.show();
             //We don't know where we are
-            pinView.delPin();
+            //pinView.delPin();
         }
     }
     /* BluetoothAdapter.LeScanCallback */
