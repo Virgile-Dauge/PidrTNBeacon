@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     private BluetoothGatt mConnectedGatt;
 
     private TextView mTemperature, mBeaconName;
-    private SubsamplingScaleImageView image;
+    private PinView pinView;
 
     private Timer timer;
     private TimerTask timerTask;
@@ -101,9 +101,9 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         ArrayList<TNBeaconData> list = JSONParserPerso.getTNBeaconList(this,"BeaconStorage.json");
 
 
-        image = (SubsamplingScaleImageView) findViewById(R.id.MapImageView);
-        image.setDoubleTapZoomDpi(400);
-        image.setImage(ImageSource.resource(R.drawable.map0));
+        pinView = (PinView) findViewById(R.id.MapImageView);
+        pinView.setDoubleTapZoomDpi(400);
+        pinView.setImage(ImageSource.resource(R.drawable.map0));
 
         /*
         Récupération du Bluetooth Adapter commun à tout le système android
