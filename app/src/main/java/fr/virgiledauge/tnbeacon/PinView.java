@@ -71,7 +71,7 @@ public class PinView extends SubsamplingScaleImageView {
 
     public void move(float x, float y) {
         // TODO faire le zoom : modifier 2f
-        this.animateScaleAndCenter(2f, new PointF(x, y))
+        this.animateScaleAndCenter(1f, new PointF(x, y))
             .withDuration(2000)
             .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
             .withInterruptible(false)

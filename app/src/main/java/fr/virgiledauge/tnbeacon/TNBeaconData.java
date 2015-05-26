@@ -29,6 +29,10 @@ public class TNBeaconData {
         return py;
     }
 
+    public int getEtage() {
+        return etage;
+    }
+
     @Override
     public boolean equals(Object o) {
         return ID.equals(((TNBeaconData)o).getID());
