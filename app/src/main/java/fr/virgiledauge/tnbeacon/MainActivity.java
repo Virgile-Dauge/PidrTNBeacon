@@ -102,7 +102,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         ArrayList<TNBeaconData> list = JSONParserPerso.getTNBeaconList(this,"BeaconStorage.json");
 
 
-        image = (PineViewPerso) findViewById(R.id.MapImageView);
+        image = (SubsamplingScaleImageView) findViewById(R.id.MapImageView);
         image.setDoubleTapZoomDpi(400);
         image.setImage(ImageSource.resource(R.drawable.map0));
 
