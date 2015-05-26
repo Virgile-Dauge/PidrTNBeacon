@@ -65,13 +65,21 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     private ArrayList<DevicePerso> mDevices;
     private BluetoothGatt mConnectedGatt;
 
-    private TextView mTemperature, mBeaconName;
+    /*
+    Interface graphique
+     */
+    private TextView mTemperature, mBeaconName, mText;
+    private ProgressDialog mProgress;
     private PinView pinView;
 
+    /*
+    Timer
+     */
     private Timer timer;
     private TimerTask timerTask;
 
-    private ProgressDialog mProgress;
+    private ArrayList<TNBeaconData> TNBeaconDatalist;
+    private TNBeaconData currentBeaconData;
     /*
     Enum des services disponibles
      */
@@ -96,11 +104,16 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
          */
         mBeaconName = (TextView) findViewById(R.id.BeaconName_textView);
         mTemperature = (TextView) findViewById(R.id.TempVal_textView);
+        mText = (TextView) findViewById(R.id.textArea);
 
-        //beaconList = new TNBeaconList(this,"BeaconStorage.json");
+        /*
+        Stockage de la liste des données des beacons
+         */
         ArrayList<TNBeaconData> list = JSONParserPerso.getTNBeaconList(this,"BeaconStorage.json");
 
-
+        /*
+        Initialisation de la vue de la carte.
+         */
         pinView = (PinView) findViewById(R.id.MapImageView);
         pinView.setDoubleTapZoomDpi(400);
         pinView.setImage(ImageSource.resource(R.drawable.map0));
@@ -121,7 +134,6 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         mProgress.setIndeterminate(true);
         mProgress.setCancelable(false);
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -238,6 +250,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         if (mDevices.size() != 0){
             device = mDevices.get(0).getDevice();
             mBeaconName.setText(device.getName());
+            
             mConnectedGatt = device.connectGatt(this, false,mGattCallback);
         }else{
             Log.d(TAG,"No Device Detected");

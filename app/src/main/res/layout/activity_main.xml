@@ -39,6 +39,13 @@
                 android:id="@+id/TempVal_textView"
                 android:textSize="23dp" />
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/textArea"
+            android:textStyle="bold"
+            android:textSize="12dp" />
 
     </TableLayout>
 
