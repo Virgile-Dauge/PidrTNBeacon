@@ -23,4 +23,13 @@ public class TNBeaconList extends ArrayList<TNBeaconData> {
         }
         return false;
     }
+
+    public TNBeaconData get(String ID) {
+        for(TNBeaconData item: this){
+            if(item.getID().equals(ID)){
+                return item;
+            }
+        }
+        return null;
+    }
 }
