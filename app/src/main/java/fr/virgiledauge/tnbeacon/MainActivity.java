@@ -253,6 +253,12 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             currentBeaconData = tNBeaconDatalist.get(device.getName());
             if(currentBeaconData != null) {
                 mText.setText(currentBeaconData.getTexte());
+
+                if(currentBeaconData.getEtage() == 0) {
+                    pinView.setImage(ImageSource.resource(R.drawable.map0));
+                } else {
+                    pinView.setImage(ImageSource.resource(R.drawable.map1));
+                }
                 pinView.movePin(currentBeaconData.getPx(), currentBeaconData.getPy());
             }
             mConnectedGatt = device.connectGatt(this, false, mGattCallback);
@@ -261,7 +267,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             Toast toast = Toast.makeText(this, "No Device Detected",Toast.LENGTH_SHORT);
             toast.show();
             //We don't know where we are
-            //pinView.delPin();
+            pinView.delPin();
         }
     }
     /* BluetoothAdapter.LeScanCallback */
